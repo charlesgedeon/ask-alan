@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doliio Chat</title>
+  <link rel="stylesheet" media="all" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <div id="chat">
+    <div class="from-them">
+      <p>Good morning Jake!</p>
+      <p>Yesterday, I had a small chat with Sarah about her broken leg. I told her to get well soon and she said that she would like to see you. Should I schedule that into your calendar?</p>
+    </div>
+    <div class="from-me">
+      <p>&#x1F44D; Great thanks!</p>
+    </div>
+    <div class="from-them">
+      <p>I was also able to get 12 likes on a Facebook post I created for you and 2 comments. Would you like to read one?</p>
+    </div>
+    <div class="from-me">
+      <p>I've already seen them, it's okay</p>
+    </div>
+    <div class="from-them">
+      <p>Ok. I've prepared 2 posts for you today but I'm not sure about the second</p>
+      <p>Does this look right?</p>
+    </div>
+    <div class="typing-indicator"><span></span><span></span><span></span></div>
+    <div class="clear"></div>
+  </div>
+  <nav id="bubbletools" style="bottom: 0px; transform: translateY(0px);">
+    <div class="first row">
+      <div class="option">&#x1F640;&#x1F418;&#x1F42D;</div>
+      <div class="option">Great Choice</div>
+      <div class="clear"></div>
+    </div>
+  </nav>
+  <!-- <div class="statusbar"><img src="bar.png"></div> -->
+  <div class="launch"><span class="helper"></span><img src="ii.png"></div>
+  <div class="font_preload" style="opacity: 0"><span style="font-family: 'San Francisco';font-weight:700;"></span></div>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script type="text/javascript">
+  	$(function(){ 
+
+  		setTimeout(function() {
+  			$( ".launch" ).fadeOut();
+  		}, 800);
+
+  		if ($("body").height() <= $(window).height()) $( "#bubbletools" ).css("transform", "translateY(0px)");
+		window.onscroll = function(ev) {
+		    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+		        $( "#bubbletools" ).css("transform", "translateY(0px)");
+		    } else {
+		    	$( "#bubbletools" ).css("transform", "translateY(100px)");
+		    }
+		};
+
+		var count = 0;
+
+		var responses = 
+		[
+			[
+				[0,
+				"Hi Amanda! ",
+				"What can I do for you today?"]
+			],
+
+			[
+				[0,
+				"Okay, so I <strong>liked</strong> 4 posts from 3 friends on Facebook",
+				"Made <strong>1 new match</strong> on Tinder, he likes dogs too 😉",
+				"Congratulated Shane on his new baby,<br> it's a <strong>boy</strong> 👶&nbsp;"],
+
+				[2,
+				"Right away! 🐰",
+				"🛠 Here are your social settings",
+				"settingsPanel.png"]
+			],
+
+			[
+				[0,
+				"Here’s how your friendship with Shane is going",
+				"shaneKelly.png"],
+
+				[0,
+				"Here’s how your friendship with Alex is going",
+				"shaneKelly.png"]
+			],
+
+			[
+				[0,
+				"Great to hear",
+				"I’ll make sure it stays that way!"],
+
+				[0,
+				"No problem",
+				"I’ll be sure to start being more active with Shane"]
+			]
+		];
+	  	
+	  	var newOptions = [
+	  	["First Trigger", "Second Trigger"],
+	  	["Daily Report", "Change social settings"],
+	  	["See Shane", "See Alex on Tinder"],
+	  	["I’m happy with that 🐼", "I’d like to improve it"],
+	  	["Lovely", "See today's report"],
+	  	];
+
+	  	$( ".first" ).on("click", "div.option", function() {
+	  		var i;
+	  		var curObj = $(this);
+	  		var response = responses[count][$( "div.option" ).index( this )];
+	  		count = count + response[0];
+	  		hideOptions( this );
+	  		addChosenAnswer( $(this).text() );
+	   		setTimeout(function() {
+	   			changeOptions(count);
+	   			console.log(response);
+	   			for (i = 1; i < response.length; i++) {
+	   				setTimeout(viewResponse.bind(null, response, i), 1600 * (i-1));
+	   			}
+	   			setTimeout(showOptions, (response.length-1) * 1500);
+	   		}, 400);
+	   		count++;
+		});
+
+		var getUrlParameter = function getUrlParameter(sParam) {
+		    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+		        sURLVariables = sPageURL.split('&'),
+		        sParameterName,
+		        i;
+
+		    for (i = 0; i < sURLVariables.length; i++) {
+		        sParameterName = sURLVariables[i].split('=');
+
+		        if (sParameterName[0] === sParam) {
+		            return sParameterName[1] === undefined ? true : sParameterName[1];
+		        }
+		    }
+		};
+
+	  	var autoStart = getUrlParameter('start');
+	  	if(autoStart == 'false') {
+	  		return false;
+	  	} else {
+	  		$( ".from-me" ).remove();
+	  		$( ".from-them" ).remove();
+	  		hideOptions();
+	  		setTimeout(function() {
+		  		$( "div.option:first" ).trigger("click");
+		  		$( ".from-me:first").remove();
+	  		}, 1500);
+	  	}
+
+		function viewResponse(resp, num) {
+			typingIndicator(true);
+			bottomScroll();
+			setTimeout(function() {
+				typingIndicator(false);
+				addMultiResponse(resp[num], num);
+				bottomScroll();
+			}, getRandom(1000,1600));
+		}
+
+	  	function typingIndicator(bool) {
+	  		if (bool) $( ".typing-indicator" ).css("display","block");
+	  		if (!bool) $( ".typing-indicator" ).css("display","none");
+	  	}
+
+	  	function addChosenAnswer(string) {
+	  		$( ".typing-indicator" ).before("<div class='from-me'><p>"+string+"</p></div>");
+	  	}
+
+	  	function addMultiResponse(resp, part) {
+	  		console.log(resp);
+	  		if (resp.indexOf("png") >= 0) {
+	  			if(part == 1) $( ".typing-indicator" ).before("<div class='from-them'><img src='"+resp+"'></div>");
+		  		else $( ".from-them:last" ).append("<img src='"+resp+"'>");
+	  		} else {
+		  		if(part == 1) $( ".typing-indicator" ).before("<div class='from-them'><p>"+resp+"</p></div>");
+		  		else $( ".from-them:last" ).append("<p>"+resp+"</p>");
+	  		}
+	  	}
+
+		function hideOptions() {
+			$( "#bubbletools" ).animate({"bottom": "-100px"},500);
+		}
+
+		function hideOptions(object) {
+			$( object ).animate({"bottom": "50px"},300);
+			$( "#bubbletools" ).animate({"bottom": "-100px"},500);
+		}
+
+		function changeOptions(toId) {
+			$( ".first" ).empty();
+			for (var i = 0; i < newOptions[toId].length; i++) {
+				var tempStr = "<div class='option'>"+newOptions[toId][i]+"</div>";
+				$( ".first" ).append(tempStr);
+			}
+			$( ".first" ).append("<div class='clear'></div>");
+		}
+
+		function showOptions() {
+	  		$( "#bubbletools" ).animate({"bottom": "0px"},1000);
+		}
+
+		function bottomScroll() {
+			setTimeout(function() {
+				$("html, body").animate({ scrollTop: $(document).height()-$(window).height() },400);
+			}, 250);
+		}
+
+		function getRandom(min, max) {
+		    return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+	});
+  </script>
+</body>
+</html>

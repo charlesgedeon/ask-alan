@@ -1,0 +1,225 @@
+/** Regular */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+/** Regular */
+@font-face {
+  font-family: "San Francisco";
+  font-weight: 700;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
+}
+
+body {
+  font-family: "San Francisco", "Helvetica Neue";
+  font-weight: 400;
+  font-size: 16px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.statusbar {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.statusbar img {
+  width: 100%;
+}
+
+.launch {
+  top: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#50E3C2,#9EE7D6); /* linear-gradient(#3CC9AA,#7ECCBA);*/
+  opacity: 1;
+  text-align: center;
+}
+
+.launch img {
+  width: 16%;
+  vertical-align: middle;
+  max-height: 70%;
+}
+
+.launch .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+nav#bubbletools {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  transform: translateY(100px);
+  transition: transform .7s ease-in-out;
+}
+
+nav#bubbletools .row {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 0 10px 10px;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+/*
+nav#bubbletools .first {
+  background: #FFF;
+} 
+
+nav#bubbletools .second {
+  background: #FFF;
+} 
+
+nav#bubbletools .third {
+  background: #FFF;
+} 
+*/
+
+nav#bubbletools .row .option {
+  display: inline-block;
+  line-height: 24px;
+  position: relative;
+  padding: 6px 12px;
+  margin: 5px 0 5px 10px;
+  color: white;
+  background: #50E3C2;
+  border-radius: 20px 20px 0 20px;
+  cursor: pointer;
+  float: right;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+nav#bubbletools .row div:hover {
+  background: #54F7D3;
+}
+
+#chat {
+  max-width: 560px;
+  margin: 30px auto 10px;
+  padding: 0 10px;
+}
+#chat p,
+#chat img {
+  max-width: 80%;
+  word-wrap: break-word;
+  margin: 0 0 4px 0;
+  line-height: 24px;
+  position: relative;
+  padding: 6px 12px;
+  clear: both;
+}
+
+#chat img {
+  padding: 0;
+  background: #E5E5EA;
+  border-radius: 0 20px 20px 0;
+  float: left;
+}
+
+#chat img:last-child {
+  border-radius: 0 20px 20px 20px;
+}
+
+#chat .from-me p:last-child,
+#chat .from-them p:last-child {
+  margin-bottom: 10px;
+}
+#chat .from-me p {
+  color: white;
+  background: #50E3C2;
+  border-radius: 20px 0px 0 20px;
+  float: right;
+}
+#chat .from-me p:first-child {
+  border-radius: 20px 20px 0 20px;
+}
+
+#chat .from-them p {
+  transition: border-radius .4s ease-in-out;
+  background: #E5E5EA;
+  border-radius: 0 20px 20px 0;
+  color: black;
+  float: left;
+}
+#chat .from-them p:last-child {
+  border-radius: 0 20px 20px 20px;
+}
+#chat .from-them p:first-child {
+  border-radius: 20px 20px 20px 0;
+}
+#chat div:last-child {
+  margin-bottom: 50px;
+}
+
+.clear {
+  clear: both;
+}
+
+.typing-indicator {
+  clear: both;
+  float: left;
+  background-color: #E6E7ED;
+  width: 36px;
+  height: 10px;
+  border-radius: 20px 20px 20px 0;
+  padding: 12px;
+  display: none;
+  position: relative;
+  -webkit-animation: 2s bulge infinite ease-out;
+          animation: 2s bulge infinite ease-out;
+}
+
+.typing-indicator span {
+  height: 10px;
+  width: 10px;
+  float: left;
+  margin: 0 1px;
+  background-color: #9E9EA1;
+  display: block;
+  border-radius: 50%;
+  opacity: 0.4;
+}
+.typing-indicator span:nth-of-type(1) {
+  -webkit-animation: 1s blink infinite 0.3333s;
+          animation: 1s blink infinite 0.3333s;
+}
+.typing-indicator span:nth-of-type(2) {
+  -webkit-animation: 1s blink infinite 0.6666s;
+          animation: 1s blink infinite 0.6666s;
+}
+.typing-indicator span:nth-of-type(3) {
+  -webkit-animation: 1s blink infinite 0.9999s;
+          animation: 1s blink infinite 0.9999s;
+}
+
+@-webkit-keyframes blink {
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes bulge {
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
+@keyframes bulge {
+  50% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+  }
+}
